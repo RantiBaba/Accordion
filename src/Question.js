@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import SingleQuestion from './SingleQuestion'
 
-const Question = ({ title, info }) => {
-  const [showInfo, setShowInfo] = useState(false);
-
+const Question = ({ questions, activeId, toggleQuestion }) => {
   return (
-    <article className='question'>
-      <header>
-        <h4>{title}</h4>
-        <button className='btn' onClick={() => setShowInfo(!showInfo)}>
-          {showInfo ? <AiOutlineMinus /> : <AiOutlinePlus />}
-        </button>
-      </header>
-      {showInfo && <p>{info}</p>}
-    </article>
-  );
-};
+    <section className='container'>
+      <h1>Questions</h1>
+      {questions.map(question => {
+        return (
+          <SingleQuestion
+            key={question.id}
+            {...question}
+            activeId={activeId}
+            toggleQuestion={toggleQuestion}
+            data-testid={`question-${question.id}`}
+          />
+        )
+      })}
+    </section>
+  )
+}
 
-export default Question;
+export default Question
